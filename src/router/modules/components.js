@@ -4,6 +4,7 @@ import Layout from '@/layout'
 
 const componentsRouter = {
   path: '/components',
+  hidden: true, // (默认 false)
   component: Layout,
   redirect: 'noRedirect',
   name: 'ComponentDemo',
@@ -14,6 +15,7 @@ const componentsRouter = {
   children: [
     {
       path: 'tinymce',
+      hidden: true, // (默认 false)
       component: () => import('@/views/components-demo/tinymce'),
       name: 'TinymceDemo',
       meta: { title: 'Tinymce' }

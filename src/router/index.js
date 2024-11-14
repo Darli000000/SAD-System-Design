@@ -85,18 +85,20 @@ export const constantRoutes = [
   },
   {
     path: '/documentation',
+    hidden: true, // (默认 false)
     component: Layout,
     children: [
       {
         path: 'index',
         component: () => import('@/views/documentation/index'),
         name: 'Documentation',
-        meta: { title: 'Documentation', icon: 'documentation', affix: true }
+        meta: { title: 'Documentation', icon: 'documentation', affix: false }
       }
     ]
   },
   {
     path: '/guide',
+    hidden: true, // (默认 false)
     component: Layout,
     redirect: '/guide/index',
     children: [
@@ -131,6 +133,7 @@ export const constantRoutes = [
 export const asyncRoutes = [
   {
     path: '/permission',
+    hidden: true, // (默认 false)
     component: Layout,
     redirect: '/permission/page',
     alwaysShow: true, // will always show the root menu
@@ -172,7 +175,60 @@ export const asyncRoutes = [
   },
 
   {
+    path: '/academicAdvising',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/charts/grade-chart'),
+        name: 'academicAdvising',
+        meta: { title: 'Academic Advising', icon: 'form' }
+      }
+    ]
+  },
+
+  {
+    path: '/courseAssessment',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/table/courseAssessment-table'),
+        name: 'courseAssessment',
+        meta: { title: 'Course Assessment', icon: 'nested' }
+      }
+    ]
+  },
+
+  {
+    path: '/recommendingCourses',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/table/recommendation-table'),
+        name: 'recommendingCourses',
+        meta: { title: 'Recommendation', icon: 'star' }
+      }
+    ]
+  },
+
+  {
+    path: '/generateSchedule',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/components-demo/schedule-kanban'),
+        name: 'generateSchedule',
+        meta: { title: 'Generate Schedule', icon: 'table' }
+      }
+    ]
+  },
+
+  {
     path: '/icon',
+    hidden: true, // (默认 false)
     component: Layout,
     children: [
       {
@@ -192,6 +248,7 @@ export const asyncRoutes = [
 
   {
     path: '/example',
+    hidden: true, // (默认 false)
     component: Layout,
     redirect: '/example/list',
     name: 'Example',
@@ -224,6 +281,7 @@ export const asyncRoutes = [
 
   {
     path: '/tab',
+    hidden: true, // (默认 false)
     component: Layout,
     children: [
       {
@@ -237,6 +295,7 @@ export const asyncRoutes = [
 
   {
     path: '/error',
+    hidden: true, // (默认 false)
     component: Layout,
     redirect: 'noRedirect',
     name: 'ErrorPages',
@@ -262,6 +321,7 @@ export const asyncRoutes = [
 
   {
     path: '/error-log',
+    hidden: true, // (默认 false)
     component: Layout,
     children: [
       {
@@ -275,6 +335,7 @@ export const asyncRoutes = [
 
   {
     path: '/excel',
+    hidden: true, // (默认 false)
     component: Layout,
     redirect: '/excel/export-excel',
     name: 'Excel',
@@ -312,6 +373,7 @@ export const asyncRoutes = [
 
   {
     path: '/zip',
+    hidden: true, // (默认 false)
     component: Layout,
     redirect: '/zip/download',
     alwaysShow: true,
@@ -329,6 +391,7 @@ export const asyncRoutes = [
 
   {
     path: '/pdf',
+    hidden: true, // (默认 false)
     component: Layout,
     redirect: '/pdf/index',
     children: [
@@ -348,6 +411,7 @@ export const asyncRoutes = [
 
   {
     path: '/theme',
+    hidden: true, // (默认 false)
     component: Layout,
     children: [
       {
@@ -361,6 +425,7 @@ export const asyncRoutes = [
 
   {
     path: '/clipboard',
+    hidden: true, // (默认 false)
     component: Layout,
     children: [
       {
@@ -374,6 +439,7 @@ export const asyncRoutes = [
 
   {
     path: 'external-link',
+    hidden: true, // (默认 false)
     component: Layout,
     children: [
       {

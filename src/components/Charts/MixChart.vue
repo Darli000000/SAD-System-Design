@@ -24,6 +24,83 @@ export default {
     height: {
       type: String,
       default: '200px'
+    },
+    chartTitle: { // 接收图表标题
+      type: String,
+      default: '统计图表'
+    },
+    legendData: { // 接收图例标签
+      type: Array,
+      default: () => ['标签1', '标签2', '标签3']
+    },
+    xAxisData: { // 接收 x 轴数据
+      type: Array,
+      default: () => Array.from({ length: 12 }, (_, i) => `${i + 1}月`)
+    },
+    seriesData: { // 接收系列数据
+      type: Array,
+      default: () => [
+        {
+          name: '标签1',
+          type: 'bar',
+          stack: 'total',
+          barMaxWidth: 35,
+          barGap: '10%',
+          itemStyle: {
+            normal: {
+              color: 'rgba(255,144,128,1)',
+              label: {
+                show: true,
+                textStyle: {
+                  color: '#fff'
+                },
+                position: 'insideTop',
+                formatter(p) {
+                  return p.value > 0 ? p.value : ''
+                }
+              }
+            }
+          },
+          data: [709, 1917, 2455, 2610, 1719, 1433, 1544, 3285, 5208, 3372, 2484, 4078] },
+        {
+          name: '标签2',
+          type: 'bar',
+          stack: 'total',
+          itemStyle: {
+            normal: {
+              color: 'rgba(0,191,183,1)',
+              barBorderRadius: 0,
+              label: {
+                show: true,
+                position: 'top',
+                formatter(p) {
+                  return p.value > 0 ? p.value : ''
+                }
+              }
+            }
+          },
+          data: [327, 1776, 507, 1200, 800, 482, 204, 1390, 1001, 951, 381, 220] },
+        {
+          name: '标签3',
+          type: 'line',
+          stack: 'total',
+          symbolSize: 10,
+          symbol: 'circle',
+          itemStyle: {
+            normal: {
+              color: 'rgba(252,230,48,1)',
+              barBorderRadius: 0,
+              label: {
+                show: true,
+                position: 'top',
+                formatter(p) {
+                  return p.value > 0 ? p.value : ''
+                }
+              }
+            }
+          },
+          data: [1036, 3693, 2962, 3810, 2519, 1915, 1748, 4675, 6209, 4323, 2865, 4298] }
+      ]
     }
   },
   data() {
@@ -35,26 +112,25 @@ export default {
     this.initChart()
   },
   beforeDestroy() {
-    if (!this.chart) {
-      return
+    if (this.chart) {
+      this.chart.dispose()
+      this.chart = null
     }
-    this.chart.dispose()
-    this.chart = null
   },
   methods: {
     initChart() {
       this.chart = echarts.init(document.getElementById(this.id))
-      const xData = (function() {
-        const data = []
-        for (let i = 1; i < 13; i++) {
-          data.push(i + 'month')
-        }
-        return data
-      }())
+      //      const xData = (function() {
+      //        const data = []
+      //        for (let i = 1; i < 13; i++) {
+      //          data.push(i + 'month')
+      //        }
+      //        return data
+      //      }())
       this.chart.setOption({
         backgroundColor: '#344b58',
         title: {
-          text: 'statistics',
+          text: this.chartTitle, // 使用传入的标题
           x: '20',
           top: '20',
           textStyle: {
@@ -90,7 +166,7 @@ export default {
           textStyle: {
             color: '#90979c'
           },
-          data: ['female', 'male', 'average']
+          data: this.legendData // 使用传入的图例标签
         },
         calculable: true,
         xAxis: [{
@@ -113,7 +189,7 @@ export default {
             interval: 0
 
           },
-          data: xData
+          data: this.xAxisData // 使用传入的x轴数据
         }],
         yAxis: [{
           type: 'value',
@@ -161,111 +237,10 @@ export default {
           start: 1,
           end: 35
         }],
-        series: [{
-          name: 'female',
-          type: 'bar',
-          stack: 'total',
-          barMaxWidth: 35,
-          barGap: '10%',
-          itemStyle: {
-            normal: {
-              color: 'rgba(255,144,128,1)',
-              label: {
-                show: true,
-                textStyle: {
-                  color: '#fff'
-                },
-                position: 'insideTop',
-                formatter(p) {
-                  return p.value > 0 ? p.value : ''
-                }
-              }
-            }
-          },
-          data: [
-            709,
-            1917,
-            2455,
-            2610,
-            1719,
-            1433,
-            1544,
-            3285,
-            5208,
-            3372,
-            2484,
-            4078
-          ]
-        },
-
-        {
-          name: 'male',
-          type: 'bar',
-          stack: 'total',
-          itemStyle: {
-            normal: {
-              color: 'rgba(0,191,183,1)',
-              barBorderRadius: 0,
-              label: {
-                show: true,
-                position: 'top',
-                formatter(p) {
-                  return p.value > 0 ? p.value : ''
-                }
-              }
-            }
-          },
-          data: [
-            327,
-            1776,
-            507,
-            1200,
-            800,
-            482,
-            204,
-            1390,
-            1001,
-            951,
-            381,
-            220
-          ]
-        }, {
-          name: 'average',
-          type: 'line',
-          stack: 'total',
-          symbolSize: 10,
-          symbol: 'circle',
-          itemStyle: {
-            normal: {
-              color: 'rgba(252,230,48,1)',
-              barBorderRadius: 0,
-              label: {
-                show: true,
-                position: 'top',
-                formatter(p) {
-                  return p.value > 0 ? p.value : ''
-                }
-              }
-            }
-          },
-          data: [
-            1036,
-            3693,
-            2962,
-            3810,
-            2519,
-            1915,
-            1748,
-            4675,
-            6209,
-            4323,
-            2865,
-            4298
-          ]
-        }
-        ]
+        series: this.seriesData // 使用传入的图表数据
       })
     }
   }
+
 }
 </script>

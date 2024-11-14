@@ -4,6 +4,7 @@ import Layout from '@/layout'
 
 const chartsRouter = {
   path: '/charts',
+  hidden: true, // (默认 false)
   component: Layout,
   redirect: 'noRedirect',
   name: 'Charts',
